@@ -18,7 +18,7 @@ final class Vacancy
     /**
      * @var string
      * @ORM\Id()
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="guid")
      */
     private string $id;
     /**
@@ -45,7 +45,7 @@ final class Vacancy
         $this->image = $image;
     }
 
-    public static function new(string $name, ?string $description, ?string $image): self
+    public static function new(string $name, ?string $description = null, ?string $image = null): self
     {
         return new self(Uuid::uuid4()->toString(), $name, $description, $image);
     }

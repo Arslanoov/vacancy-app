@@ -117,38 +117,45 @@ final class Request
         return $this->cvFile;
     }
 
-    public function setVacancy(Vacancy $vacancy): void
+    public function setVacancy(Vacancy $vacancy): self
     {
         $this->vacancy = $vacancy;
+        return $this;
     }
 
-    public function setFullName(string $fullName): void
+    public function setFullName(string $fullName): self
     {
         $this->fullName = $fullName;
+        return $this;
     }
 
-    public function setBirthdayDate(DateTimeImmutable $birthdayDate): void
+    public function setBirthdayDate(DateTimeImmutable $birthdayDate): self
     {
         $this->birthdayDate = $birthdayDate;
+        return $this;
     }
 
-    public function setGender(string $gender): void
+    public function setGender(string $gender): self
     {
         $this->gender = $gender;
+        return $this;
     }
 
-    public function setPhone(string $phone): void
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
+        return $this;
     }
 
-    public function setCvDescription(?string $cvDescription): void
+    public function setCvDescription(?string $cvDescription): self
     {
         $this->cvDescription = $cvDescription;
+        return $this;
     }
 
-    public function setCvFile(?string $cvFile): void
+    public function setCvFile(?string $cvFile): self
     {
         $this->cvFile = $cvFile;
+        return $this;
     }
 }

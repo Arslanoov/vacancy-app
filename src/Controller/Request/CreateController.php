@@ -9,6 +9,7 @@ use App\Entity\Vacancy\Request as VacancyRequest;
 use App\Repository\VacancyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use JsonException;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,40 @@ final class CreateController
 
     /**
      * @Route("/vacancy/{vacancyId}/request", name="vacancy.request", methods={"POST"})
+     * @OA\Post(
+     *     path="/vacancy/request/{vacancyId}",
+     *     tags={"Add new vacancy request"},
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              required={"vacancy_id", "full_name", "birthday_date", "contact_phone", "token"},
+     *              @OA\Property(property="vacancy_id", type="string"),
+     *              @OA\Property(property="full_name", type="string"),
+     *              @OA\Property(property="birthday_date", type="string"),
+     *              @OA\Property(property="contact_phone", type="string"),
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="gender", type="string"),
+     *              @OA\Property(property="cv_file", type="string"),
+     *              @OA\Property(property="cv_description", type="string"),
+     *              @OA\Property(property="token", type="string")
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                   property="resume_file",
+     *                   description="Resume FIle",
+     *                   type="file",
+     *                   @OA\Items(type="string", format="binary")
+     *                ),
+     *            ),
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Success response"
+     *     )
+     * )
      * @param string $vacancyId
      * @param Request $request
      * @throws JsonException

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Request;
 
 use App\Service\FileUploader;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,6 +26,32 @@ final class ResumeFileController
 
     /**
      * @Route("/resume/upload", name="resume.upload", methods={"POST"})
+     * @OA\Post(
+     *     path="/resume/upload",
+     *     tags={"Upload resume file"},
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              required={"resume"},
+     *              @OA\Property(property="resume", type="string")
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="multipart/form-data",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                   property="resume",
+     *                   description="Resume File",
+     *                   type="file",
+     *                   @OA\Items(type="string", format="binary")
+     *                )
+     *            )
+     *        )
+     *     ),
+     *     @OA\Response(
+     *         response=204,
+     *         description="Success response"
+     *     )
+     * )
      * @param Request $request
      * @return Response
      */

@@ -1,0 +1,24 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            lazy: true
+            provider: app_user_provider
+            stateless: true
+            http_basic:
+                realm: Secured Area
+
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_USER }

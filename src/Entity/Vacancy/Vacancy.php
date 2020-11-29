@@ -20,34 +20,26 @@ final class Vacancy
      * @ORM\Id()
      * @ORM\Column(type="guid")
      */
-    private string $id;
+    private $id;
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    private string $name;
+    private $name;
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $description;
+    private $description;
     /**
      * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
-    private ?string $image;
+    private $image;
 
-    public function __construct(string $id, string $name, ?string $description, ?string $image)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->description = $description;
-        $this->image = $image;
-    }
-
-    public static function new(string $name, ?string $description = null, ?string $image = null): self
-    {
-        return new self(Uuid::uuid4()->toString(), $name, $description, $image);
+        $this->id = Uuid::uuid4()->toString();
     }
 
     public function getId(): string
@@ -68,5 +60,20 @@ final class Vacancy
     public function getImage(): ?string
     {
         return $this->image;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 }

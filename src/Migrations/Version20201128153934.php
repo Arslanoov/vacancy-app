@@ -21,8 +21,6 @@ final class Version20201128153934 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN vacancy_requests.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN vacancy_requests.birthday_date IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('ALTER TABLE vacancy_requests ADD CONSTRAINT FK_915C068433B78C4 FOREIGN KEY (vacancy_id) REFERENCES vacancies (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE vacancies ALTER id TYPE UUID');
-        $this->addSql('ALTER TABLE vacancies ALTER id DROP DEFAULT');
     }
 
     public function down(Schema $schema): void

@@ -21,7 +21,7 @@ final class Request
      * @ORM\Id()
      * @ORM\Column(type="guid")
      */
-    private string $id;
+    private $id;
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", name="created_at")
@@ -39,7 +39,7 @@ final class Request
      * @var string
      * @ORM\Column(type="string", name="full_name")
      */
-    private string $fullName;
+    private $fullName;
     /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", name="birthday_date")
@@ -49,65 +49,27 @@ final class Request
      * @var string
      * @ORM\Column(type="string", length=8)
      */
-    private string $gender;
+    private $gender;
     /**
      * @var string
      * @ORM\Column(type="string", name="phone", length=15)
      */
-    private string $phone;
+    private $phone;
     /**
      * @var string|null
      * @ORM\Column(type="string", name="cv_description", nullable=true)
      */
-    private ?string $cvDescription;
+    private $cvDescription;
     /**
      * @var string|null
      * @ORM\Column(type="string", name="cv_file", nullable=true)
      */
-    private ?string $cvFile;
+    private $cvFile;
 
-    private function __construct(
-        string $id,
-        DateTimeImmutable $createdAt,
-        Vacancy $vacancy,
-        string $fullName,
-        DateTimeImmutable $birthdayDate,
-        string $gender,
-        string $phone,
-        ?string $cvDescription,
-        ?string $cvFile
-    ) {
-        $this->id = $id;
-        $this->createdAt = $createdAt;
-        $this->vacancy = $vacancy;
-        $this->fullName = $fullName;
-        $this->birthdayDate = $birthdayDate;
-        $this->gender = $gender;
-        $this->phone = $phone;
-        $this->cvDescription = $cvDescription;
-        $this->cvFile = $cvFile;
-    }
-
-    public static function new(
-        Vacancy $vacancy,
-        string $fullName,
-        DateTimeImmutable $birthdayDate,
-        string $gender,
-        string $phone,
-        ?string $cvDescription = null,
-        ?string $cvFile = null
-    ): self {
-        return new self(
-            Uuid::uuid4()->toString(),
-            new DateTimeImmutable(),
-            $vacancy,
-            $fullName,
-            $birthdayDate,
-            $gender,
-            $phone,
-            $cvDescription,
-            $cvFile
-        );
+    public function __construct()
+    {
+        $this->id = Uuid::uuid4()->toString();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): string
@@ -153,5 +115,40 @@ final class Request
     public function getCvFile(): ?string
     {
         return $this->cvFile;
+    }
+
+    public function setVacancy(Vacancy $vacancy): void
+    {
+        $this->vacancy = $vacancy;
+    }
+
+    public function setFullName(string $fullName): void
+    {
+        $this->fullName = $fullName;
+    }
+
+    public function setBirthdayDate(DateTimeImmutable $birthdayDate): void
+    {
+        $this->birthdayDate = $birthdayDate;
+    }
+
+    public function setGender(string $gender): void
+    {
+        $this->gender = $gender;
+    }
+
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    public function setCvDescription(?string $cvDescription): void
+    {
+        $this->cvDescription = $cvDescription;
+    }
+
+    public function setCvFile(?string $cvFile): void
+    {
+        $this->cvFile = $cvFile;
     }
 }
